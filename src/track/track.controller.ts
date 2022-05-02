@@ -4,9 +4,11 @@ import { TrackService } from "./track.service";
 import { ObjectId } from 'mongoose'
 import { CreateCommentDto } from "./dto/create-comment.tdo";
 import { FileFieldsInterceptor } from "@nestjs/platform-express";
-import { ApiOperation, ApiResponse, ApiBody, ApiParam } from "@nestjs/swagger";
+import { ApiOperation, ApiResponse, ApiBody, ApiParam, ApiTags } from "@nestjs/swagger";
 import { Track } from "./schemas/track.schema";
 import { Comment } from "./schemas/comment.schema";
+
+@ApiTags('Tracks')
 @Controller('/tracks')
 export class TrackController {
 

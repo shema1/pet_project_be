@@ -4,6 +4,7 @@ import { ServeStaticModule } from "@nestjs/serve-static";
 import { resolve } from "path";
 import { FileModule } from "./file/file.module";
 import { TrackModule } from "./track/track.module";
+import { UsersModule } from "./users/users.module";
 
 
 
@@ -14,7 +15,8 @@ import { TrackModule } from "./track/track.module";
     }),
     MongooseModule.forRoot('mongodb+srv://shema:vbrjkf1@cluster0.qqhgt.mongodb.net/test-aplication?retryWrites=true&w=majority'),
     TrackModule,
-    FileModule
+    FileModule,
+    UsersModule
   ]
 })
 export class AppModule {
