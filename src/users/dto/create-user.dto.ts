@@ -8,5 +8,5 @@ export class CreateUserkDto {
   readonly email;
 
   @ApiProperty({ example: 'password' })
-  readonly artist;
+  readonly password;
 }
