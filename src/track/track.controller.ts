@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Query, UploadedFiles, UseInterceptors } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, UploadedFiles, UseInterceptors } from "@nestjs/common";
 import { CreateTrackDto, CreateTrackFileDto } from "./dto/create-track.dto";
 import { TrackService } from "./track.service";
 import { ObjectId } from 'mongoose'
@@ -14,9 +14,9 @@ export class TrackController {
     private trackService: TrackService
   ) { }
 
+  @Post()
   @ApiOperation({ summary: 'Create track' })
   @ApiResponse({ status: 200, type: Track })
-  @Post()
   @UseInterceptors(FileFieldsInterceptor([
     { name: 'picture', maxCount: 1 },
     { name: 'audio', maxCount: 1 },
@@ -50,9 +50,9 @@ export class TrackController {
     return this.trackService.create(dto, picture[0], audio[0])
   }
 
+  @Get()
   @ApiOperation({ summary: 'Tracks list' })
   @ApiResponse({ status: 200, type: [Track] })
-  @Get()
   getAll(
     @Query('count') count: number,
     @Query('offset') offset: number
@@ -67,20 +67,28 @@ export class TrackController {
     return this.trackService.search(query)
   }
 
+  @Get(':id')
   @ApiOperation({ summary: 'Get track' })
   @ApiParam({ name: 'id', required: true, description: 'Track id', schema: { type: 'string' } })
   @ApiResponse({ status: 200, type: Track })
-  @Get(':id')
   getOne(@Param('id') id: ObjectId) {
     return this.trackService.getOne(id)
   }
 
+  @Delete(':id')
   @ApiOperation({ summary: 'Delete track' })
   @ApiParam({ name: 'id', required: true, description: 'Track id', schema: { type: 'string' } })
   @ApiResponse({ status: 200, type: "6262aba2761d957e6e06b47b" })
-  @Delete(':id')
   delete(@Param('id') id: ObjectId) {
     return this.trackService.delete(id)
+  }
+
+  @Put(':id')
+  @ApiOperation({ summary: 'Update track' })
+  @ApiResponse({ status: 200, type: Track })
+  update(@Param('id') id, @UploadedFiles() files: CreateTrackFileDto, @Body() dto: CreateTrackDto) {
+    // const { picture, audio } = files;
+    return this.trackService.update(id, dto)
   }
 
   @Post('/comment')

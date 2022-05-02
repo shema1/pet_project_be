@@ -33,6 +33,12 @@ export class TrackService {
     return track;
   }
 
+  async update(id: ObjectId, dto): Promise<Track> {
+    await this.trackModel.findByIdAndUpdate(id, dto)
+    const track = await this.trackModel.findById(id).populate("comments")
+    return track;
+  }
+
   async delete(id: ObjectId): Promise<ObjectId> {
     const track = await this.trackModel.findByIdAndDelete(id)
     return track._id
@@ -54,7 +60,7 @@ export class TrackService {
 
   async search(query: string): Promise<Track[]> {
     const tracks = await this.trackModel.find({
-      name: {$regex: new RegExp(query, 'i')}
+      name: { $regex: new RegExp(query, 'i') }
     })
     return tracks
   }
