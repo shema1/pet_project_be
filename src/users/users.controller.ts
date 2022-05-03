@@ -1,6 +1,8 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query, UploadedFiles, UseInterceptors } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, UploadedFiles, UseGuards, UseInterceptors, Request } from "@nestjs/common";
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { ObjectId } from 'mongoose'
+import { JwtAuthGuard } from "src/auth/guards/jwt-auth.guard";
+import { JwtStategy } from "src/auth/strategies/jwt.strategy";
 import { CreateUserkDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
 import { User } from "./schemas/user.schema";
@@ -23,6 +25,7 @@ export class UsersController {
     return this.usersService.createUser(dto)
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get()
   @ApiOperation({ summary: 'Get all users' })
   @ApiResponse({ status: 200, type: [User] })

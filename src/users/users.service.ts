@@ -21,6 +21,11 @@ export class UsersService {
     return user
   }
 
+  async getUserByEmail(email: string): Promise<User> | undefined {
+    const user = await this.userModel.findOne({ email: email });
+    return user
+  }
+
   async getAllUsers(): Promise<User[]> {
     const users = await this.userModel.find()
     return users

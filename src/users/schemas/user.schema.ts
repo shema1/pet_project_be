@@ -6,6 +6,8 @@ export type UserDocument = User & Document
 @Schema()
 export class User {
 
+  _id: string
+
   @ApiProperty({ example: 'name' })
   @Prop()
   name: string;
@@ -16,7 +18,7 @@ export class User {
 
   @ApiProperty({ example: 'password' })
   @Prop()
-  artist: string;
+  password: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User)
