@@ -18,12 +18,12 @@ export class UsersController {
   ) { }
 
 
-  @Post()
-  @ApiOperation({ summary: 'Create user' })
-  @ApiResponse({ status: 200, type: User })
-  create(@Body() dto: CreateUserkDto) {
-    return this.usersService.createUser(dto)
-  }
+  // @Post()
+  // @ApiOperation({ summary: 'Create user' })
+  // @ApiResponse({ status: 200, type: User })
+  // create(@Body() dto: CreateUserkDto) {
+  //   return this.usersService.createUser(dto)
+  // }
 
   @UseGuards(JwtAuthGuard)
   @Get()
