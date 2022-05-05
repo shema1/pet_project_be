@@ -8,7 +8,7 @@ export class User {
 
   _id: string
 
-  @ApiProperty({ example: 'name' })
+  @ApiProperty({ example: 'name'})
   @Prop()
   name: string;
 
