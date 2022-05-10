@@ -25,16 +25,16 @@ export class AuthService {
     return passwordIsValid ? user : null;
   }
 
-  async login(user: User): Promise<{ access_token: string }> {
+  async login(user: User): Promise<{ access_token: string, user: any }> {
     const payload = { _id: user._id, name: user.name, email: user.email }
-    return { access_token: this.jwtService.sign(payload) }
+    return { access_token: this.jwtService.sign(payload), user: payload }
   }
 
   async registration(dto: CreateUserkDto): Promise<User> {
     const candidate = await this.usersService.getUserByEmail(dto.email);
     if (candidate) {
       throw new HttpException('Email alredy exist', HttpStatus.BAD_REQUEST);
-  }
+    }
     const user = this.usersService.createUser(dto)
     return user
   }
@@ -50,5 +50,18 @@ export class AuthService {
     }
 
     return user
+  }
+
+  async decode(token: string): Promise<User> {
+    console.log("token", token)
+    const decoded = await this.jwtService.verify(token, {
+      secret: jwtSecret
+    })
+
+    if (!decoded) {
+      throw new Error('Unable to get the user')
+    }
+
+    return decoded
   }
 }

@@ -18,7 +18,7 @@ export class TrackController {
   ) { }
 
   @Post()
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'Create track' })
   @ApiResponse({ status: 200, type: Track })
   @UseInterceptors(FileFieldsInterceptor([

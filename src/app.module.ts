@@ -6,6 +6,7 @@ import { FileModule } from "./file/file.module";
 import { TrackModule } from "./track/track.module";
 import { UsersModule } from "./users/users.module";
 import { AuthModule } from './auth/auth.module';
+import { ChatModule } from "./chat/chat.module";
 
 
 
@@ -18,7 +19,8 @@ import { AuthModule } from './auth/auth.module';
     TrackModule,
     FileModule,
     UsersModule,
-    AuthModule
+    AuthModule,
+    ChatModule
   ]
 })
 export class AppModule {
